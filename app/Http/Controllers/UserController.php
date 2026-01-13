@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class UserController extends Controller
         $list = $query->paginate($n);
 
         $data = [
-            'users' => $list
+            'list' => $list
         ];
 
         return view('pages.user.index', $data);
@@ -33,14 +34,25 @@ class UserController extends Controller
         return $this->form($user);
     }
 
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
+        $data = $request->validated();
+        $data['password'] = bcrypt($data['password']);
 
+        User::create($data);
+
+        return redirect()->route('users.index')->with('success', 'Usuário criado com sucesso!');
     }
 
     public function show(Request $request, $id)
     {
+        $user = User::findOrFail($id);
 
+        $data = [
+            'user' => $user
+        ];
+
+        return view('pages.user.show-user', $data);
     }
 
     public function edit(Request $request, $id)
@@ -51,14 +63,24 @@ class UserController extends Controller
         return $this->form($user);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
+        $data = $request->validated();
 
+        $user->fill($data);
+
+        $user->save();
+
+        return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso!');
     }
 
     public function destroy(Request $request, $id)
     {
+        $user = User::findOrFail($id);
 
+        User::destroy($id);
+
+        return redirect()->route('users.index')->with('success', 'Usuário deletado com sucesso!');
     }
 
     /**

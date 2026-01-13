@@ -13,8 +13,9 @@
         @include('components.sidebar')
 
         <div id="content">
-            @yield('section')
+            @yield('content')
         </div>
+
     </main>
 
     @include('components.footer')
