@@ -5,7 +5,7 @@
         <h1>Listagem de Usuários</h1>
 
         <div class="table-responsive">
-            <table>
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -24,23 +24,25 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>
-                                <a href="{{ route('users.edit', $user->id) }}">
-                                    <button>Editar</button>
+                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">
+                                    Editar
                                 </a>
                                 <form method="POST" action="{{ route('users.destroy', $user->id) }}" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" onclick="return confirm('Deseja realmente remover?')">Remover</button>
+                                    <button type="submit" class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Deseja realmente remover?')">Remover</button>
                                 </form>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
-            </table>
+            </table>                                                      
+            {{ $list->links() }}
         </div>
 
-        <a href="{{ route('users.create') }}">
-            <button>Criar Novo Usuário</button>
+        <a href="{{ route('users.create') }}" class="btn btn-success mt-3">
+            Criar Novo Usuário
         </a>
     </div>
 @endsection
