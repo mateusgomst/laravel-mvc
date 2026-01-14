@@ -48,7 +48,7 @@ class VehicleController extends Controller
         $data = $request->validated();
         $vehicle = Vehicle::create($data);
 
-        return redirect()->route('vehicle.index')->with('success', 'Vehicle criado com sucesso!');
+        return redirect()->route('vehicles.index')->with('success', 'Vehicle criado com sucesso!');
 
     }
 
@@ -85,7 +85,7 @@ class VehicleController extends Controller
 
         $vehicle->save();
 
-        return redirect()->route(route: 'vehicle.index')->with('success', 'Veiculo atualizado com sucesso!');
+        return redirect()->route('vehicles.index')->with('success', 'Veiculo atualizado com sucesso!');
 
     }
 
