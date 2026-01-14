@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreVehicleRequest;
+use App\Http\Requests\UpdateVehicleRequest;
+use App\Models\Brand;
+use App\Models\BrandModel;
+use App\Models\Color;
+use App\Models\Optional;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller
@@ -9,9 +16,19 @@ class VehicleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Vehicle::search($request);
+
+        $n = $request->get('list', 10);
+
+        $list = $query->paginate($n);
+
+        $data = [
+            'list' => $list
+        ];
+
+        return view('pages.vehicle.index', $data);
     }
 
     /**
@@ -19,15 +36,20 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        //
+        $vehicle = new Vehicle();
+        return $this->form($vehicle);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreVehicleRequest $request)
     {
-        //
+        $data = $request->validated();
+        $vehicle = Vehicle::create($data);
+
+        return redirect()->route('vehicle.index')->with('success', 'Vehicle criado com sucesso!');
+
     }
 
     /**
@@ -35,7 +57,11 @@ class VehicleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $vehicle = Vehicle::findOrFail($id);
+        $data = [
+            'vehicle' => $vehicle
+        ];
+        return view('pages.vehicle.show-vehicle', $data);
     }
 
     /**
@@ -43,15 +69,24 @@ class VehicleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $vehicle = Vehicle::findOrFail($id);
+
+        return $this->form($vehicle);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateVehicleRequest $request, Vehicle $vehicle)
     {
-        //
+        $data = $request->validated();
+
+        $vehicle->fill($data);
+
+        $vehicle->save();
+
+        return redirect()->route(route: 'vehicle.index')->with('success', 'Veiculo atualizado com sucesso!');
+
     }
 
     /**
@@ -59,6 +94,32 @@ class VehicleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $vehicle = Vehicle::findOrFail($id);
+
+        Vehicle::destroy($id);
+
+        return redirect()->route('vehicle.index')->with('success', 'Veiculo deletado com sucesso!');
+    }
+
+    /**
+     * Form Vehicle
+     * @param Vehicle $vehicle
+     * @return \Illuminate\Contracts\View\View
+     */
+    private function form(Vehicle $vehicle)
+    {
+        $models = BrandModel::All();
+        $colors = Color::All();
+        $optionals = Optional::All();
+
+
+        $data = [
+            'vehicle' => $vehicle,
+            'models' => $models,
+            'colors' => $colors,
+            'optionals' => $optionals
+        ];
+
+        return view('pages.vehicle.form', $data);
     }
 }
