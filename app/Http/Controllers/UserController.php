@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -15,7 +14,7 @@ class UserController extends Controller
     {
         $query = User::search($request);
 
-        $n = $request->get('limit', 10);
+        $n = $request->get('list', 10);
 
         $list = $query->paginate($n);
 
@@ -28,7 +27,6 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-
         $user = new User();
 
         return $this->form($user);
@@ -71,7 +69,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso!');
+        return redirect()->route(route: 'users.index')->with('success', 'Usuário atualizado com sucesso!');
     }
 
     public function destroy(Request $request, $id)

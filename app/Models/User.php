@@ -19,9 +19,13 @@ class User extends Authenticatable
      * @param Request $request
      * @return void
      */
-    public function scopeSearch($query, Request $request){
-        if($request->search){
-
+    public function scopeSearch($query, Request $request)
+    {
+        if ($request->name) {
+            $query->where('name', 'ilike', '%' . $request->name . '%');
+        }
+        if ($request->email) {
+            $query->where('email', 'ilike', '%' . $request->email . '%');
         }
     }
 
