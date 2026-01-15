@@ -15,12 +15,15 @@ class Vehicle extends Model
         'plate',
     ];
 
-    public function scopeSearch($query, Request $request)
+    /**
+     * @param \Illuminate\Database\Eloquent\Builder<Vehicle> $query
+     */
+    public function scopeSearch(\Illuminate\Database\Eloquent\Builder $query, Request $request): void
     {
 
         if ($request->model) {
             $query->whereHas('model', function ($q) use ($request) {
-                $q->where('name', 'ilike', '%'.$request->model.'%');
+                $q->where('name', 'ilike', '%' . $request->model . '%');
             });
         }
         if ($request->plate) {
@@ -35,17 +38,26 @@ class Vehicle extends Model
         // }
     }
 
-    public function model()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<BrandModel, $this>
+     */
+    public function model(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(BrandModel::class);
     }
 
-    public function color()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Color, $this>
+     */
+    public function color(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Color::class);
     }
 
-    public function optionals()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Optional, $this>
+     */
+    public function optionals(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Optional::class, 'vehicle_optional');
     }

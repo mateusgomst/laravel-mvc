@@ -29,6 +29,9 @@ class StoreUserRequest extends FormRequest
 
     }
 
+    /**
+     * @return array<int, string>
+     */
     protected function getPasswordRules(): array
     {
         return ['required', 'string'];

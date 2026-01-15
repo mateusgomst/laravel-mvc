@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): \Illuminate\Contracts\View\View
     {
         $query = User::search(request: $request);
 
@@ -24,14 +24,14 @@ class UserController extends Controller
         return view('pages.user.index', $data);
     }
 
-    public function create(Request $request)
+    public function create(Request $request): \Illuminate\Contracts\View\View
     {
         $user = new User;
 
         return $this->form($user);
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request): \Illuminate\Http\RedirectResponse
     {
         $data = $request->validated();
         $data['password'] = bcrypt($data['password']);
@@ -41,7 +41,7 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'Usuário criado com sucesso!');
     }
 
-    public function show(Request $request, $id)
+    public function show(Request $request, string $id): \Illuminate\Contracts\View\View
     {
         $user = User::findOrFail($id);
 
@@ -52,7 +52,7 @@ class UserController extends Controller
         return view('pages.user.show-user', $data);
     }
 
-    public function edit(Request $request, $id)
+    public function edit(Request $request, string $id): \Illuminate\Contracts\View\View
     {
 
         $user = User::findOrFail($id);
@@ -60,7 +60,7 @@ class UserController extends Controller
         return $this->form($user);
     }
 
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $user): \Illuminate\Http\RedirectResponse
     {
         $data = $request->validated();
 
@@ -71,7 +71,7 @@ class UserController extends Controller
         return redirect()->route(route: 'users.index')->with('success', 'Usuário atualizado com sucesso!');
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, string $id): \Illuminate\Http\RedirectResponse
     {
         $user = User::findOrFail($id);
 
