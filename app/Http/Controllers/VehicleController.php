@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVehicleRequest;
 use App\Http\Requests\UpdateVehicleRequest;
-use App\Models\Brand;
 use App\Models\BrandModel;
 use App\Models\Color;
 use App\Models\Optional;
@@ -45,7 +44,9 @@ class VehicleController extends Controller
      */
     public function store(StoreVehicleRequest $request)
     {
+
         $data = $request->validated();
+
         $vehicle = Vehicle::create($data);
 
         return redirect()->route('vehicles.index')->with('success', 'Vehicle criado com sucesso!');
@@ -98,7 +99,7 @@ class VehicleController extends Controller
 
         Vehicle::destroy($id);
 
-        return redirect()->route('vehicle.index')->with('success', 'Veiculo deletado com sucesso!');
+        return redirect()->route('vehicles.index')->with('success', 'Veiculo deletado com sucesso!');
     }
 
     /**
@@ -108,7 +109,7 @@ class VehicleController extends Controller
      */
     private function form(Vehicle $vehicle)
     {
-        $models = BrandModel::All();
+        $models = BrandModel::search()->baseSole()->get();
         $colors = Color::All();
         $optionals = Optional::All();
 

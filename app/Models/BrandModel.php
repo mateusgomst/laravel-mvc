@@ -14,4 +14,11 @@ class BrandModel extends Model
     {
         return $this->belongsTo(Brand::class);
     }
+
+    public function scopeSearch($query)
+    {
+        $query->join('brands', 'brands.id', 'models.brand_id');
+        $query->select('models.*', 'brands.name');
+    }
+
 }

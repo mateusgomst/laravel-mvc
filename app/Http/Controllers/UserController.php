@@ -12,7 +12,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $query = User::search($request);
+        $query = User::search(request: $request);
 
         $n = $request->get('list', 10);
 

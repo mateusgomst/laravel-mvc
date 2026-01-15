@@ -1,18 +1,15 @@
 <header class="bg-white shadow">
     <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
-        <a href="#" class="text-xl font-bold text-gray-800">
+        <a href="{{ route('vehicles.index') }}" class="text-xl font-bold text-gray-800">
             Logo
         </a>
 
         <div class="flex items-center space-x-6">
-            <a href="#" class="">
-                Home
+            <a href="{{ route('users.index') }}" class="">
+                Users
             </a>
-            <a href="#features" class="">
-                Features
-            </a>
-            <a href="#pricing" class="">
-                Pricing
+            <a href="{{ route('vehicles.index') }}" class="">
+                Vehicles
             </a>
         </div>
     </nav>

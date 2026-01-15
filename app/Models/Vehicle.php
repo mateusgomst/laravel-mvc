@@ -3,14 +3,29 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use SebastianBergmann\CodeCoverage\Test\Target\Function_;
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Http\Request;
 
 class Vehicle extends Model
 {
-    //
+    protected $fillable = [
+        'model_id',
+        'model_year',
+        'year',
+        'color_id',
+        'plate',
+    ];
     public function scopeSearch($query, Request $request)
     {
+
+        if ($request->model) {
+            $query->whereHas('model', function ($q) use ($request) {
+                $q->where('name', 'ilike', '%' . $request->model . '%');
+            });
+        }
+        if ($request->plate) {
+            $query->where('plate', $request->plate);
+        }
+
         // if ($request->name) {
         //     $query->where('name', 'ilike', '%' . $request->name . '%');
         // }
