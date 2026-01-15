@@ -24,7 +24,7 @@ class VehicleController extends Controller
         $list = $query->paginate($n);
 
         $data = [
-            'list' => $list
+            'list' => $list,
         ];
 
         return view('pages.vehicle.index', $data);
@@ -35,7 +35,8 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        $vehicle = new Vehicle();
+        $vehicle = new Vehicle;
+
         return $this->form($vehicle);
     }
 
@@ -60,8 +61,9 @@ class VehicleController extends Controller
     {
         $vehicle = Vehicle::findOrFail($id);
         $data = [
-            'vehicle' => $vehicle
+            'vehicle' => $vehicle,
         ];
+
         return view('pages.vehicle.show-vehicle', $data);
     }
 
@@ -104,7 +106,7 @@ class VehicleController extends Controller
 
     /**
      * Form Vehicle
-     * @param Vehicle $vehicle
+     *
      * @return \Illuminate\Contracts\View\View
      */
     private function form(Vehicle $vehicle)
@@ -113,12 +115,11 @@ class VehicleController extends Controller
         $colors = Color::All();
         $optionals = Optional::All();
 
-
         $data = [
             'vehicle' => $vehicle,
             'models' => $models,
             'colors' => $colors,
-            'optionals' => $optionals
+            'optionals' => $optionals,
         ];
 
         return view('pages.vehicle.form', $data);

@@ -10,6 +10,7 @@ class BrandModel extends Model
     use HasFactory;
 
     protected $table = 'models';
+
     public function brand()
     {
         return $this->belongsTo(Brand::class);
@@ -20,5 +21,4 @@ class BrandModel extends Model
         $query->join('brands', 'brands.id', 'models.brand_id');
         $query->select('models.*', 'brands.name');
     }
-
 }

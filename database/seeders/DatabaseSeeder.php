@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -20,7 +19,7 @@ class DatabaseSeeder extends Seeder
             BrandSeeder::class,
             BrandModelSeeder::class,
             ColorSeeder::class,
-            OptionalSeeder::class
+            OptionalSeeder::class,
         ]);
     }
 }

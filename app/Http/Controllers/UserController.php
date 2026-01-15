@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
     public function index(Request $request)
     {
         $query = User::search(request: $request);
@@ -19,7 +18,7 @@ class UserController extends Controller
         $list = $query->paginate($n);
 
         $data = [
-            'list' => $list
+            'list' => $list,
         ];
 
         return view('pages.user.index', $data);
@@ -27,7 +26,7 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-        $user = new User();
+        $user = new User;
 
         return $this->form($user);
     }
@@ -47,7 +46,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $data = [
-            'user' => $user
+            'user' => $user,
         ];
 
         return view('pages.user.show-user', $data);
@@ -83,13 +82,13 @@ class UserController extends Controller
 
     /**
      * Visualizar a view de formulário
-     * @param User $user
+     *
      * @return \Illuminate\Contracts\View\View
      */
     private function form(User $user)
     {
         $data = [
-            'user' => $user
+            'user' => $user,
         ];
 
         return view('pages.user.form', $data);

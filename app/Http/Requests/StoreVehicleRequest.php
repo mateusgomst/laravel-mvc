@@ -26,7 +26,7 @@ class StoreVehicleRequest extends FormRequest
             'model_year' => 'integer|required',
             'year' => 'integer|required',
             'color_id' => 'integer|required',
-            'plate' => 'string|size:7|required'
+            'plate' => 'string|size:7|required',
         ];
     }
 }

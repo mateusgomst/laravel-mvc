@@ -17,7 +17,7 @@ class BrandModelSeeder extends Seeder
 
         foreach ($brands as $brand) {
             BrandModel::factory()->count(10)->create([
-                'brand_id' => $brand->id
+                'brand_id' => $brand->id,
             ]);
         }
     }

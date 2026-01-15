@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Color;
-use Database\Factories\ColorFactory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ColorSeeder extends Seeder

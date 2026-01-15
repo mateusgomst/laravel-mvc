@@ -18,7 +18,7 @@ class BrandModelFactory extends Factory
     {
         return [
             'brand_id' => null,
-            'name' => $this->faker->city()
+            'name' => $this->faker->city(),
 
         ];
     }

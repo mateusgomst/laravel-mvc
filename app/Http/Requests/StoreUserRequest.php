@@ -24,13 +24,14 @@ class StoreUserRequest extends FormRequest
         return [
             'name' => 'required|string',
             'email' => 'required|email|string',
-            'password' => $this->getPasswordRules()
+            'password' => $this->getPasswordRules(),
         ];
 
     }
 
-    protected function getPasswordRules(): array  {
-       return ['required','string'];
+    protected function getPasswordRules(): array
+    {
+        return ['required', 'string'];
 
     }
 }

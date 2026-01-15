@@ -15,17 +15,17 @@ class User extends Authenticatable
 
     /**
      * Pesquisar dentro da lista de usuários
-     * @param mixed $query
-     * @param Request $request
+     *
+     * @param  mixed  $query
      * @return void
      */
     public function scopeSearch($query, Request $request)
     {
         if ($request->name) {
-            $query->where('name', 'ilike', '%' . $request->name . '%');
+            $query->where('name', 'ilike', '%'.$request->name.'%');
         }
         if ($request->email) {
-            $query->where('email', 'ilike', '%' . $request->email . '%');
+            $query->where('email', 'ilike', '%'.$request->email.'%');
         }
     }
 

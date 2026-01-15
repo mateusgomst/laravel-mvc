@@ -14,12 +14,13 @@ class Vehicle extends Model
         'color_id',
         'plate',
     ];
+
     public function scopeSearch($query, Request $request)
     {
 
         if ($request->model) {
             $query->whereHas('model', function ($q) use ($request) {
-                $q->where('name', 'ilike', '%' . $request->model . '%');
+                $q->where('name', 'ilike', '%'.$request->model.'%');
             });
         }
         if ($request->plate) {
